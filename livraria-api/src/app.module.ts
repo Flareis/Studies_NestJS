@@ -11,9 +11,9 @@ import { LivrosService } from './livros.service';
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: 'localhost',
-      port: 3006,
+      port: 3306,
       username: 'root',
-      password: 'root',
+      password: '',
       database: 'livraria',
       autoLoadModels: true,
       synchronize: true,
