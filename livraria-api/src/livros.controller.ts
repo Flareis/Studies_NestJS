@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { runInThisContext } from "vm";
+//import { runInThisContext } from "vm";
 import { Livro } from "./livro.model";
 import { LivrosService } from "./livros.service";
 
@@ -9,29 +9,29 @@ export class livrosController {
         
     }
    
-    @Get ()
-    obterTodos(): Livro[] {
+    @Get()
+    async obterTodos(): Promise<Livro[]> {
         return this.livrosService.obterTodos();
     }
 
     @Get(':id')
-    obterUm(@Param() params): Livro {
+    async obterUm(@Param() params): Promise<Livro> {
         return this.livrosService.obterUm (params.id);
     }
 
     @Post()
-    criar(@Body() livro: Livro) {
-        this.livrosService.criar (livro)
+    async criar(@Body() livro: Livro) {
+        this.livrosService.criar(livro);
     }
 
     @Put()
-    alterar(@Body() livro:Livro): Livro {
+    async alterar(@Body() livro:Livro): Promise<[number, Livro[]]> {
     
         return this.livrosService.alterar(livro);
-    }
+    } 
 
     @Delete(':id')
-    apagar (@Param () params) {
+    async apagar (@Param () params) {
         this.livrosService.apagar(params.id);
     }
 
