@@ -15,6 +15,7 @@ export class LivrosService {
 
     async obterUm (id: number): Promise<Livro> {
         return this.livroModel.findByPk(id);
+    
     }
 
     async criar (livro:Livro) {
@@ -28,8 +29,13 @@ export class LivrosService {
             });
     }
 
-    async apagar (id:number) {
+    async apagar (id:number):Promise<boolean> {
         const livro:Livro = await this.obterUm(id);
-        livro.destroy();
+        if (livro != null ) {
+            livro.destroy();
+            return true
+        } else {
+            return false   
+        }
     }
 }
