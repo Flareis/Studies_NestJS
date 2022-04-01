@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Res } from "@nestjs/common";
 import { Autor } from "./autor.model";
 import { AutoresService } from "./autor.service";
+import { Response } from "express";
 
 @Controller ('autores')
 export class autoresController {
@@ -18,20 +19,20 @@ export class autoresController {
     }
 
     @Post()
-    async criar(@Body() livro: Autor) {
-        this.autoresService.criar(livro);
+    async criar(@Body() autor: Autor) {
+        this.autoresService.criar(autor);
     }
 
     @Put()
-    async alterar(@Body() livro:Autor): Promise<[number, Autor[]]> {
+    async alterar(@Body() autor:Autor): Promise<[number, Autor[]]> {
     
-        return this.autoresService.alterar(livro);
-    } 
+        return this.autoresService.alterar(autor);
+    }  
 
     @Delete(':id')
-    async apagar (@Param () params/* , @Res() response:Response */) {
+    async apagar (@Param () params , @Res() response:Response) {
         const confirmacao:boolean = await this.autoresService.apagar(params.id)   
-        /* try{
+        try{
             const confirmacao:boolean = await this.autoresService.apagar(params.id)
             //console.log (`Passei por aqui ${confirmacao}`)
             if (confirmacao){
@@ -39,11 +40,11 @@ export class autoresController {
                 response.status(200).send({message: `Autor com ID: ${params.id} deletado com sucesso.`})
             } else {
                 //return (`Autor com o ID: ${params.id} não encontrado.`)
-                response.status(404).send({ message: `Autor com o ID: ${params.id} não encontrado.`})
+                response.status(404).send({ message: `Autor com o ID: ${params.id} não foi encontrado.`})
                 
             }
         } catch(error){
             response.status(501).send({message: error.message})
-        } */
+        }
     }
 }

@@ -17,8 +17,8 @@ export class AutoresService {
         return this.autorModel.findByPk(id);
     }
 
-    async criar (livro:Autor) {
-        this.autorModel.create(livro);
+    async criar (autor:Autor) {
+        this.autorModel.create(autor);
     }
     
     async alterar(autor: Autor): Promise<[number, Autor[]]> {
