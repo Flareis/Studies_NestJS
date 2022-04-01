@@ -1,4 +1,5 @@
-import { Column, Model, DataType, Table } from "sequelize-typescript";
+import { Column, Model, DataType, Table, HasMany, BelongsTo, ForeignKey } from "sequelize-typescript";
+import { Livro } from "src/livros/livro.model";
 
 @Table
 export class Autor extends Model<Autor> {
@@ -19,5 +20,8 @@ export class Autor extends Model<Autor> {
         type: DataType.STRING(),
         allowNull: false,
     })
-    area: string;
+    area: string;    
+
+    @HasMany(type => Livro)
+    livro: Livro[] 
 }
